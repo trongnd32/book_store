@@ -1,0 +1,131 @@
+.cart-grid{
+    display: grid;
+    grid-template-columns: 72% auto;
+}
+
+.cart-allRow{
+    grid-row: 1/20;
+}
+
+.cart-book-grid{
+    /* display: grid; */
+    display: none;
+    /* height: 184px; */
+    height: 0px;
+    max-width: 800px;
+    grid-template-columns: 140px 45% 20% auto;
+    margin-bottom: 40px;
+}
+
+.cart-img{
+    /* display: inline-block; */
+    display: none;
+    height: 184px;
+    max-width: 140px;
+}
+
+.cart-book-name{
+    display: none;
+    height: 50px;
+    font-size: 18px;
+    color: #bbbbbb;
+    margin: 8px 0 0 15px;
+}
+
+.cart-author{
+    display: none;
+    font-size: 12px;
+    color: #777777;
+    margin: 10px 0 0 15px;
+}
+
+.cart-remove-book{
+    display: none;
+    color: #000000;
+    font-size: 12px;
+    margin: 70px 0px 0 15px;
+    background-color: #777777;
+    width: 55px; 
+    height: 26px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.cart-remove-book:hover{
+    box-shadow: 2px 0px 4px #ffffff4D, 
+        -2px 0px 4px #ffffff4D,
+        0px 2px 4px #ffffff4D,
+        0px -2px 4px #ffffff4D;
+}
+
+.cart-remove-book:visited{
+    color: #000000;
+}
+
+.cart-price{
+    display: none;
+    font-size: 18px;
+    color: #bbbbbb;
+    margin: 8px 0 0 40px;
+}
+
+.cart-quantity{
+    /* display: grid; */
+    display: none;
+    grid-template-columns: 20px 45px 20px;
+    width: 85px;
+    margin: 0px 0 0 50px;
+    text-align: center;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.value-button{
+    font-size: 18px;
+    color: #000000;
+    /* display: inline-block; */
+    display: none;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 4px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.quantity-value{
+    border: none;
+    font-size: 18px;
+    color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+}
+
+.cart-total{
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+
+.cart-buy{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}

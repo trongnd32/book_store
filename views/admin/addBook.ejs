@@ -1,0 +1,79 @@
+<head>
+    <% include ./navbar.ejs%>
+    <style type="text/css" media="screen,projection">
+        @import url("/style/books.css");
+    </style>
+</head>
+
+<body>
+    <form action="/admin/addbook/" method="post" enctype="multipart/form-data">
+        <table class="books-table">
+            <tr>
+                <th>Thuộc tính</th>
+                <th>Thông tin</th>
+            </tr>
+
+            <tr>
+                <td>Tên sách</td>
+                <td><input class="changeInfo" name="bookName" ></td>
+            </tr>
+
+            <tr>
+                <td>Tác giả</td>
+                <td><input class="changeInfo" name="author"></td>
+            </tr>
+
+            <tr>
+                <td>Số lượng</td>
+                <td><input class="changeInfo" name="amount"></td>
+            </tr>
+
+            <tr>
+                <td>Giá</td>
+                <td><input class="changeInfo" name="price" ></td>
+            </tr>
+
+            <tr>
+                <td>Số trang</td>
+                <td><input class="changeInfo" name="pagesNumber"></td>
+            </tr>
+
+            <tr>
+                <td>Đánh giá</td>
+                <td><input class="changeInfo" name="rating"></td>
+            </tr>
+
+            <tr>
+                <td>Nhà xuất bản</td>
+                <td><input class="changeInfo" name="company"></td>
+            </tr>
+
+            <tr>
+                <td>Thể loại</td>
+                <td>
+                    <select name="cateId">
+                        <% cate.forEach(function(item) { %>
+                            <option value="<%=item.CateID%>"><%=item.CateName%></option>
+                        <% }) %>    
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mô tả</td>
+                <td>
+                    <textarea rows="" cols="" class="changeInfo" name="describe"></textarea>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Ảnh bìa</td>
+                <td>
+                    <input type="file" name="file">
+                </td>
+            </tr>
+        </table>
+    <button class="btn admin-btn green" type="submit">Lưu</button>
+    </form>
+    <button class="btn admin-btn green" style="margin:20px 0 0 10%" onclick="goBack()">Lùi lại</button>
+</body>

@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="../style/hp.css">
+<div class="menu">
+    <a href="/"><img class = "logo" src="/../icon/logo.svg"></a>
+    <div class="search-container">
+        <form class="search-form" action="/search/1" method="post">
+            <input class="input-search" type="text" placeholder="Search..." name="search" id="search">
+            <button class="button" type="submit"><img src="/../icon/search.svg"> </button>
+        </form>
+    </div>
+    <div>
+        <button class="login" id="login">
+            <a href="/user/login">Đăng nhập</a>
+        </button>
+        <button class="login" id="info">
+            <a href="/user/info">Tài khoản</a>
+        </button>
+        <button class="login" id="logout" onclick="logout()">
+            Đăng xuất
+        </button>
+        <button class="login" id="cart">
+            <a href="/user/cart/">Giỏ</a>
+            <div class = "reddot" id = "reddot" name="reddot"></div>
+        </button>
+    </div>
+</div>
+
+<script>
+    if(localStorage.getItem("user") == null) localStorage.setItem("user","-1");
+    if(localStorage.getItem("user") == "-1"){
+        var x = document.getElementById("login");
+        x.style.display = "inline-block";
+        x = document.getElementById("cart");
+        x.style.display = "inline-block";
+    } else {
+        var x = document.getElementById("info");
+        x.style.display = "inline-block";
+        var x = document.getElementById("logout");
+        x.style.display = "inline-block";
+        x = document.getElementById("cart");
+        x.style.display = "inline-block";
+    }
+
+    var n = localStorage.length;
+    var m = (n-1)/5;
+    var sum = 0;
+    for(var i = 1;i <= 20;i++){
+        var s = "quantity" + i;
+        if(localStorage.getItem(s) != undefined) sum = sum + parseInt(localStorage.getItem(s));
+    }
+    if(sum > 0){
+        var x = document.getElementById("reddot");
+        x.style.display = "inline";
+        x.innerHTML = sum;
+    }
+
+    function logout() {
+        localStorage.clear();
+        localStorage.setItem("user","-1");
+        location.replace("/user/logout");
+    }
+
+</script>

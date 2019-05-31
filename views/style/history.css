@@ -1,0 +1,36 @@
+.htr-grid-container {
+    display: grid;
+    grid-template-columns: 8.33% 20.83% 12% 12% 12% 12% auto;
+    grid-gap: 0px;
+}
+
+.merged-row-1 {
+    grid-row: 1/10;
+}
+
+.htr-properties {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 60px 0 0 0;
+}
+
+.htr-order-id {
+    font-size: 18px;
+    color: #3B86FF;
+    margin: 30px 0 0 0;
+    width: 75%;
+    height: 25px;
+}
+
+.htr-properties-value {
+    font-size: 18px;
+    color: #bbbbbb;
+    margin: 30px 0 0 0;
+    width: 75%;
+    height: 25px;
+}
+
+.htr-allRow{
+    grid-row: 1/10;
+}

@@ -1,0 +1,77 @@
+<head>
+    <% include ./layout/header.ejs%>
+    <style type="text/css" media="screen,projection">
+      @import url("/style/checkout.css");
+    </style>
+</head>
+
+<body>
+    <div class="checkout-container">
+        <form action="/user/checkout" method="post" id="logged" onsubmit="submitData()">
+            <input class="input-box" type="text" placeholder="Địa chỉ" id="address" name="address" value="<%=data.Address%>"/>
+            <input class="input-box" type="tel" placeholder="Số điện thoại" id="phoneNumber" name="phoneNumber" value="<%=data.PhoneNumber%>"/>
+            <div class="total" id="total"></div>
+            <input class="hidden" id="hiddenTag" name="hiddenTag"/>
+            <input class="hidden" id="userId" name="userId"/>
+            <button class="btn" type="submit" id="order-btn">Đặt hàng</button>
+        </form>
+        <div class="total" id="notif">Bạn cần đăng nhập để sử dụng chức năng này</div>
+        <form action="/user/login" method="get"><button class="btn" id="login-btn">Đăng nhập</button> </form>
+    </div>
+</body>
+
+<script>
+    if(localStorage.getItem("user") == "-1"){
+        var x = document.getElementById("notif");
+        x.style.display = "block";
+        x.style.margin = "0 0 20px -200px"
+        x.style.color = "red";
+        x = document.getElementById("login-btn");
+        x.style.display = "block";
+        console.log("user = -1");
+    } else {
+        // calculate sum
+        var sum = 0;
+        for(var i = 1;i <= 20;i++){
+            var s1 = "quantity" + i;
+            var s2 = "price" + i;
+            if(localStorage.getItem(s1) != undefined) 
+                sum = sum + parseInt(localStorage.getItem(s1)) * parseInt(localStorage.getItem(s2));
+        }
+
+        var x = document.getElementById("logged");
+        x.style.display = "block";
+        x = document.getElementById("address");
+        x.style.display = "block";
+        x = document.getElementById("phoneNumber");
+        x.style.display = "block";
+        x = document.getElementById("total");
+        x.style.display = "block";
+        x.innerHTML = "Tổng tiền thanh toán: " + sum + "$";
+        x = document.getElementById("order-btn");
+        x.style.display = "block";
+    }
+
+    function submitData() {
+        var objs = [];
+        var sl = 0;
+        console.log(1);
+        // objs[0] = localStorage.getItem("user");
+        for(var i=1;i<=20;i++){
+            var s1 = "quantity" + i;
+            var s2 = "book" + i;
+            var s3 = "price" + i;
+            if(localStorage.getItem(s1) != undefined){
+                var priceTmp = parseInt(localStorage.getItem(s1),10) * parseInt(localStorage.getItem(s3),10);
+                objs[sl] = {bookId: localStorage.getItem(s2), quantity: localStorage.getItem(s1), price: priceTmp};
+                sl++;
+                // console.log("objs["+ sl + "]: " + objs[sl].bookId + " " + objs[sl].quantity);
+            }
+        }
+        var myJSON = JSON.stringify(objs);
+        console.log(myJSON);
+        document.getElementById("hiddenTag").value = myJSON;
+        document.getElementById("userId").value = localStorage.getItem("user");
+    }
+
+</script>

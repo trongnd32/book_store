@@ -1,0 +1,50 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style type="text/css" media="screen,projection">
+      @import url("/style/cart.css");
+      @import url("/style/info.css");
+      @import url("/style/hp.css");
+    </style>
+    <%include ./layout/header.ejs%>
+</head>
+
+<body>
+    <div class = "hp-grid">
+        <div class = "cart-allRow"></div>
+
+        <div class="cart-allRow">
+            <a class="prf-navbar" href="/user/info"> 
+                <img src="/icon/baseline-person-24px.svg" style="padding-right: 20px"/>
+                Thông tin cá nhân 
+            </a> 
+            <a class="prf-navbar" href="/user/history"> 
+                <img src="/icon/history.svg" style="padding-right: 20px"/>
+                Lịch sử giao dịch
+            </a> 
+        </div>
+        
+        <div class = "cart-grid">
+            <div class="cart-allRow">
+                <% console.log(data); %>
+                <% var sum = 0; %>
+                <%data.forEach(function(item){ %>
+                    <div class="cart-book-grid" style="display: grid; height: 184px;">
+                        <img class="cart-img" src="/uploads/<%=item.BookID %>.png" style="display: inline-block">
+                        <div class="cart-book-info" style="display: grid">
+                            <div class="cart-book-name" style="display: block"> <%= item.BookName%> </div>
+                            <div class="cart-author" style="display: block"> <%= item.Author %></div>
+                        </div>
+                        <div class="cart-price" style="display: block"> <%= item.Price %>$</div>
+                        <div class="cart-price" style="display: block"> <%= item.Quantity %> </div>
+                    </div>
+                    <% sum = sum + parseInt(item.Price)*parseInt(item.Quantity) %>
+                <% }) %>
+            </div>
+            <div class="cart-total">
+                <span>Tổng tiền: </span> 
+                <span id="cart-total"><%=sum%>$</span>
+            </div>
+        </div>
+        <div></div>
+    </div>   
+</body>

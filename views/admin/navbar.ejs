@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/style/books.css">
+</head>
+
+<body>
+    <ul id="navbar">
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/admin/books/1">Quản lí sách</a></li>
+        <li><a href="/admin/sale/">Quản lí bán hàng</a></li>
+    </ul>    
+</body>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>

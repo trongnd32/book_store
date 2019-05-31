@@ -1,0 +1,52 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%include ./layout/header.ejs%>
+    <link rel="stylesheet" type="text/css" href="/style/info.css">
+    <link rel="stylesheet" type="text/css" href="/style/history.css">
+</head>
+
+<body>
+    <div class="htr-grid-container">
+        <div class="htr-allRow"></div>
+        <div class="merged-row-1">
+            <a class="prf-navbar" href="/user/info"> 
+                <img src="/icon/baseline-person-24px.svg" style="padding-right: 20px"/>
+                Thông tin cá nhân 
+            </a> 
+            <a class="prf-navbar" href="/user/history"> 
+                <img src="/icon/history.svg" style="padding-right: 20px"/>
+                Lịch sử giao dịch
+            </a> 
+        </div>
+
+        <div class="htr-properties">Mã đơn hàng</div>
+        <div class="htr-properties">Ngày đặt hàng</div>
+        <div class="htr-properties">Thành tiền</div>
+        <div class="htr-properties">Trạng thái</div>
+        <div></div>
+        
+        <% trans.forEach(function(item) {%>
+            <% var date = item.OrderDate; %>
+            <% date = date.toString(); %>
+            <% date = date.slice(4,15); %>
+            <% var state = "Đang giao hàng"; %>
+            <% if(item.State == 2) state = "Đã giao hàng"; %>
+            <% if(item.State == 2) state = "Đã hủy"; %>
+            <a href="/user/history/<%=item.TransID%>" class="htr-order-id"> <%=item.TransID%> </a>
+            <div class="htr-properties-value"> <%= date %></div>
+            <div class="htr-properties-value"><%= item.TotalPrice %>$</div>
+            <div class="htr-properties-value"><%= state %></div>
+            <div></div>
+        <% }) %>
+
+    </div>
+</body>
+
+<script>
+    function displayDate(elem, mysqlDate){
+        console.log(mysqlDate);
+        var date = mysqlDate.slice(0,10);
+        console.log(date);
+        elem.innerHTML = date;
+    } 
+</script>

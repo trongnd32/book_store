@@ -1,0 +1,93 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%include ./layout/header.ejs%>
+    <link rel="stylesheet" type="text/css" href="/style/info.css">
+</head>
+
+<body>
+
+    <div class="prf-grid-container">
+
+        <!-- row 1 -->
+
+        <!-- col 1 -->
+        <div>
+        </div>
+
+        <!-- col 2 -->
+        <div class="prf-navbar" style="max-width:100%;">
+            <p class="prf-p"><%=info.Name%></p>
+        </div>
+
+        <!-- col 3 -->
+        <div class="merged-grid">
+            <p class="merged-grid-text">Thông tin cá nhân</p>
+        </div>
+
+        <!-- row 2 -->
+
+        <!-- col 1 -->
+        <div>
+        </div>
+
+        <!-- col 2 -->
+        <div class="merged-row-1">
+            <a class="prf-navbar" href="/user/info"> 
+                <img src="/icon/baseline-person-24px.svg" style="padding-right: 20px"/>
+                Thông tin cá nhân 
+            </a> 
+            
+            <a class="prf-navbar" href="/user/history"> 
+                <img src="/icon/history.svg" style="padding-right: 20px"/>
+                Lịch sử giao dịch
+            </a> 
+        </div>
+
+        <!-- col 3 -->
+        <form method="post" action="/user/info" class="prf-grid-info">
+            <!-- Name -->
+            <input class="prf-input" type="text" id="prf_fullName" name="prf_fullName" value="<%=info.Name%>">
+            
+            <!-- Phone number -->
+            <div class="prf-properties">Số điện thoại</div>
+            <input class="prf-input" type="tel" id="prf_phoneNumber" name="prf_phoneNumber" value="<%=info.PhoneNumber%>" maxlength="10">
+
+            <!-- Email -->
+            <div class="prf-properties">Email</div>
+            <input class="prf-input" type="email" id="prf_email" name="prf_email" value="<%=info.Email%>" disabled>
+
+            <!-- Address -->
+            <div class="prf-properties">Địa chỉ</div>
+            <textarea class="prf-address" name="prf_address" id="prf_address" rows="4"><%=info.Address%></textarea>
+            
+            <!-- Password -->
+            <div class="prf-properties">Mật khẩu</div>
+            <input class="prf-password" type="password" id="prf_currPassword" name="prf_currPassword" placeholder="Mật khẩu hiện tại"> 
+            
+            <!-- New password -->
+            <div class="prf-properties">Mật khẩu mới</div>
+            <input class="prf-password" type="password" id="prf_newPassword" name="prf_newPassword" placeholder="Mật khẩu mới">
+            
+            <!-- Confirm -->
+            <div class="prf-properties">Nhập lại</div>
+            <input class="prf-password" type="password" id="prf_confPassword" name="prf_confPassword" placeholder="Nhập lại mật khẩu mới">
+    
+                <!-- submit -->
+            <input class="prf-submit-btn" type="submit" id="prf-submit" name="prf-submit" value="Lưu" >
+            <div class="update" id="failUpdate">Cập nhật thất bại</div>
+            <div class="update" id="successUpdate">Cập nhật thành công</div>
+        </form>
+    </div>
+</body>
+
+<script>
+    if(<%=state == 0%>) {
+        var x = document.getElementById("failUpdate");
+        x.style.display = "inline-block";
+    }    
+    if(<%=state == 1%>) {
+        var x = document.getElementById("successUpdate");
+        x.style.display = "inline-block";
+        x.style.color = "green";
+    } 
+</script>

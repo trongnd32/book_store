@@ -1,0 +1,72 @@
+<head>
+    <style type="text/css" media="screen,projection">
+      @import url("/style/hp.css");
+    </style>
+    <% include ./layout/header.ejs%>
+</head>
+
+<body>
+    <div class = "hp-grid">
+        <div> </div>
+        <div>
+          <div class = "cateTitle">Thể loại</div>
+          <% cate[0].forEach(function(item){ %>
+            <% if(item.CateID == cateId) {%>
+                <a class = "categoryFocus" href="/cate/<%= item.CateID %>/1" ><%= item.CateName%></a>
+            <% } else { %>
+                <a class = "category" href="/cate/<%= item.CateID %>/1" ><%= item.CateName%></a>
+            <% } %>
+          <% })%>
+        </div>
+
+        <div class = "hp-book-grid">
+            <% var n = data[0].length %>
+            <% var maxpage = Math.ceil(n/9) %>
+            <% if(pages > maxpage) pages = maxpage %>
+            <% if(pages == 0) pages = 1 %>
+            <% var start = (pages - 1) * 9 %>
+            <% var end = Math.min(start + 9, n) %>
+            <% for (var i = start ; i < end ; i++) { %>
+            <a class = "hp-book" href="/books/<%= data[0][i].BookID %>">
+                <img class="hp-img" src="/uploads/<%= data[0][i].BookID %>.png">
+      
+              <div>
+                  <div class="hp-book-name"> <%= data[0][i].BookName %></div>
+                  <div class="hp-author"> <%= data[0][i].Author %> </div>
+                  <div class="hp-price"> <%= data[0][i].Price %>$</div>
+                  <div class="hp-describe"> <%= data[0][i].DescribeBook %></div>
+              </div>
+            </a>
+        <% } %>
+      </div>
+    </div>
+
+    
+    <div id="pagination">
+      <a href="/cate/<%= cateId %>/<%= parseInt(pages) - 1 %>"> <img src="/icon/back-arrow.svg"> </a>
+      <% if(parseInt(pages) - 2 > 0){ %>
+        <a href="/cate/<%= cateId %>/<%= parseInt(pages) - 2 %>"> <%= parseInt(pages) - 2 %> </a>
+      <% } %>
+      <% if(parseInt(pages) - 1 > 0){ %>
+        <a href="/cate/<%= cateId %>/<%= parseInt(pages) - 1 %>"> <%= parseInt(pages) - 1 %> </a>
+      <% } %>
+      <a class ="curpage" href="/cate/<%= cateId %>/<%= pages %>"> <%= pages %> </a>
+      <% if(parseInt(pages) + 1 <= maxpage){ %>
+        <a href="/cate/<%= cateId %>/<%= parseInt(pages) + 1 %>"> <%= parseInt(pages) + 1 %> </a>
+      <% } %>
+      <% if(parseInt(pages) + 2 <= maxpage){ %>
+        <a href="/cate/<%= cateId %>/<%= parseInt(pages) + 2 %>"> <%= parseInt(pages) + 2 %> </a>
+      <% } %>
+      <a href="/cate/<%= cateId %>/<%= parseInt(pages) + 1 %>"> <img src="/icon/next-arrow.svg"> </a>
+    </div>
+    
+</body>
+
+<script>
+    if(localStorage.getItem("user") == null) {
+      localStorage.setItem("user","-1");
+    }
+    var currUser = localStorage.getItem("user");
+    localStorage.setItem("user",<%= localUser%>);
+    if(currUser != <%=localUser%>) location.reload();
+</script>

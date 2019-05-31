@@ -1,0 +1,24 @@
+<head>
+    <% include ./layout/header.ejs%>
+    <style type="text/css" media="screen,projection">
+      @import url("/style/checkout.css");
+    </style>
+</head>
+
+<body>
+    <div class="checkout-container">
+        <div class="total" style="margin: 0 0 0 -120px" id="notif">Đặt hàng thành công!</div>
+        <form action="/" method="get">
+            <button class="btn" id="cumback">Trang chủ</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    var userId = localStorage.getItem("user");
+    localStorage.clear();
+    localStorage.setItem("user",userId);
+    document.getElementById("notif").style.display = "block";
+    document.getElementById("notif").style.margin = "0 0 0 100px";
+    document.getElementById("cumback").style.display = "block";
+</script>

@@ -1,0 +1,210 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.books-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    table-layout: auto;
+    margin-left: 10%;
+}
+  
+.books-table td, .books-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+.books-table tr:nth-child(even){background-color: #f2f2f2;}
+  
+.books-table tr:hover {background-color: #ddd;}
+  
+.books-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+form{
+      display: inline;
+}
+
+form button {
+    cursor: pointer;
+}
+
+#pagination {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    border-radius: 4px;
+    padding: 1px 2px 4px 2px;
+    border: none;
+    text-decoration: none;
+    margin-left: 45%;
+    margin-top: 40px;
+}
+
+#pagination a {
+    display: inline-block;
+    vertical-align: middle;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    margin: 0 2px 0 2px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+#pagination a:hover {
+    box-shadow: 2px 0px 4px #3B86FF4D, 
+        -2px 0px 4px #3B86FF4D,
+        0px 2px 4px #3B86FF4D, 
+        0px -2px 4px #3B86FF4D;
+}
+
+.curpage {
+    border: 1px;
+    background-color: transparent;
+    font-size: 20px;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    margin: 0 2px 0 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 2px 0px 4px #0000004D, 
+        -2px 0px 4px #0000004D,
+        0px 2px 4px #0000004D, 
+        0px -2px 4px #0000004D;
+}
+
+.changeInfo{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 0 5px 0 5px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 24px;
+    resize: none;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.btnLikeA{
+    background: none;
+	color: #000000;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    margin: 0 2px 0 2px;
+    border-radius: 3px;
+}
+
+.btnLikeA:hover{
+    box-shadow: 2px 0px 4px #3B86FF4D, 
+        -2px 0px 4px #3B86FF4D,
+        0px 2px 4px #3B86FF4D, 
+        0px -2px 4px #3B86FF4D;
+}
+
+.btn{
+    margin-top: 20px;
+    left: 50%;
+    position: relative;
+    margin-left: -10px;
+}
+
+.hidden{
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
+li {
+    float: left;    
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+
+.green{
+    color:#fff;
+    background-color:#4CAF50;
+}
+
+.green{
+    color:#000000;
+    background-color:#cccccc;
+}
+
+.admin-btn {
+    border:none;
+    color:#fff;
+    background-color:#4CAF50;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 30px;
+    min-width: 50px;
+}
+
+/* Page content */
+.content {
+    padding: 16px;
+}
+  
+  /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+  
+  /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+    padding-top: 60px;
+}

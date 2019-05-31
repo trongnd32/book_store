@@ -1,0 +1,63 @@
+<head>
+      <% include ./navbar.ejs%>
+      <link rel="stylesheet" type="text/css" href="/style/books.css">
+</head>
+
+<body>
+    <form action="/admin/addbook/" method="get">
+      <button class="btn admin-btn green" style="left: 10%; margin-bottom:20px;margin-left:0px" type="submit">Thêm sách mới</button>
+    </form>
+    <table class="books-table">
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th> </th>
+        </tr>
+       
+        <% var n = data.length; %>
+        <% var maxpage = Math.ceil(n/20); %>
+        <% if(pages > maxpage) pages = maxpage; %>
+        <% if(pages == 0) pages = 1; %>
+        <% var start = (pages - 1) * 20; %>
+        <% var end = Math.min(start + 20, n) %>
+
+        <% for (var i = start ; i < end ; i++) { %>
+            <tr>
+                <td><%= data[i].BookID%></td>
+                <td><%= data[i].BookName%></td>
+                <td><%= data[i].Author%></td>
+                <td><%= data[i].Price%>$</td>
+                <td><%= data[i].Amount%></td>
+                <td>
+                    <form action="/admin/books/remove/<%= data[i].BookID%>" method="post">
+                        <input class="hidden" name="pages" value="<%= pages %>">
+                        <button class="admin-btn green" type="submit">Xóa</button>
+                    </form>
+                    <form action="/admin/books/details/<%= data[i].BookID%>" method="get">
+                        <button class="admin-btn green" type="submit">Sửa</button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+
+    <div id="pagination">
+      <% if(parseInt(pages) - 2 > 0){ %>
+        <a href="/admin/books/<%= parseInt(pages) - 2 %>"> <%= parseInt(pages) - 2 %> </a>
+      <% } %>
+      <% if(parseInt(pages) - 1 > 0){ %>
+        <a href="/admin/books/<%= parseInt(pages) - 1 %>"> <%= parseInt(pages) - 1 %> </a>
+      <% } %>
+      <a class ="curpage" href="/admin/books/<%= pages %>"> <%= pages %> </a>
+      <% if(parseInt(pages) + 1 <= maxpage){ %>
+        <a href="/admin/books/<%= parseInt(pages) + 1 %>"> <%= parseInt(pages) + 1 %> </a>
+      <% } %>
+      <% if(parseInt(pages) + 2 <= maxpage){ %>
+        <a href="/admin/books/<%= parseInt(pages) + 2 %>"> <%= parseInt(pages) + 2 %> </a>
+      <% } %>
+    </div>
+
+</body>

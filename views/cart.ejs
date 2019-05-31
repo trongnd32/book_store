@@ -1,0 +1,192 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/style/hp.css">
+    <style type="text/css" media="screen,projection">
+      @import url("/style/cart.css");
+    </style>
+    <% include ./layout/header.ejs%>
+</head>
+
+<body>
+    <div class = "hp-grid">
+        <div class = "cart-allRow"></div>
+
+        <div class="cart-allRow">
+            <div class = "cateTitle">Thể loại</div>
+            <% cate.forEach(function(item){ %>
+                <a class = "category" href="/cate/<%= item.CateID %>/1" ><%= item.CateName%></a>
+            <% })%>
+        </div>
+        
+        <div class = "cart-grid">
+            <div class="cart-allRow">
+                <%for(var i=1;i<=20;i++) {%>
+                    <% var bookGridId = "cart-book-grid" + i; %>
+                    <div class="cart-book-grid" id="<%= bookGridId %>">
+                        <% var imgId = "cart-img" + i; %>
+                        <% var bookNameId = "cart-book-name" + i;%>
+                        <% var authorId = "cart-author" + i ;%>
+                        <% var priceId = "cart-price" + i; %>
+                        <% var quantityId = "cart-quantity" + i; %>
+                        <% var rmBtnId = "cart-remove-book" + i; %>
+                        <% var decreaseId = "decrease" + i; %>
+                        <% var increaseId = "increase" + i; %>
+                        <% var bookInfoId = "cart-book-info" + i; %>
+                        <% var quanFormId = "cart-quantity-form" + i; %>
+
+                        <img class="cart-img" id="<%= imgId %>">
+                        <div class="cart-book-info" id="<%= bookInfoId %>">
+                            <div class="cart-book-name" id="<%= bookNameId %>"></div>
+                            <div class="cart-author" id="<%= authorId %>"></div>
+                            <button class="cart-remove-book" id="<%= rmBtnId %>" onclick="remove(this)">Xóa</button>
+                        </div>
+                        <div class="cart-price" id="<%= priceId %>"></div>
+                        <form class="cart-quantity" id="<%= quanFormId %>">
+                            <div class="value-button" id="<%= decreaseId %>" onclick="decreaseValue(this)">-</div>
+                            <input class="quantity-value" type="number" id="<%= quantityId %>" value="1" />
+                            <div class="value-button" id="<%= increaseId %>" onclick="increaseValue(this)">+</div>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+            <div class="cart-total">
+                <span>Tổng tiền:</span> 
+                <span id="cart-total">100$</span>
+            </div>
+            <form action="/user/checkout" method="get"> <button class="cart-buy">Đặt hàng</button> </form>
+        </div>
+        <div></div>
+    </div>
+</body>
+
+<script>
+    var n = localStorage.length;
+    var m = (n-1)/5;
+    var sum = 0;
+    for(var i=1;i<=20;i++){
+        var imgId2 = "cart-img" + i;
+        var bookNameId2 = "cart-book-name" + i;
+        var authorId2 = "cart-author" + i;
+        var priceId2 = "cart-price" + i; 
+        var quantityId2 = "cart-quantity" + i; 
+        var rmBtnId2 = "cart-remove-book" + i;
+        var decreaseId2 = "decrease" + i;
+        var increaseId2 = "increase" + i;
+        var bookInfoId2 = "cart-book-info" + i;
+        var quanFormId2 = "cart-quantity-form" + i;
+        var bookGridId2 = "cart-book-grid" + i;
+
+        var bookId = "book" + i;
+        var bookName = "bookName" + i;
+        var author = "author" + i;
+        var price = "price" + i;
+        var quantity = "quantity" + i;
+
+        if(localStorage.getItem(bookName) != undefined){
+            var tmp = "" + localStorage.getItem(bookId);
+            var n = tmp.length;
+            var temp2 = "";
+            for(var j=1;j<=10-n;j++) temp2 = temp2 + "0";
+            temp2 = temp2 + tmp + ".png";
+            var imgSrc = "/uploads/" + temp2;
+            document.getElementById(imgId2).src = imgSrc;
+            document.getElementById(imgId2).style.display = "block";
+            document.getElementById(bookNameId2).innerHTML = localStorage.getItem(bookName);
+            document.getElementById(bookNameId2).style.display = "block";
+            document.getElementById(authorId2).innerHTML = localStorage.getItem(author);
+            document.getElementById(authorId2).style.display = "block";
+            document.getElementById(priceId2).innerHTML = localStorage.getItem(price) + "$";
+            document.getElementById(priceId2).style.display = "block";
+            document.getElementById(quantityId2).value = localStorage.getItem(quantity);
+            document.getElementById(quantityId2).style.display = "inline-block";
+            document.getElementById(rmBtnId2).style.display = "block";
+            document.getElementById(decreaseId2).style.display = "inline-block";
+            document.getElementById(increaseId2).style.display = "inline-block";
+            // document.getElementById(bookInfoId2).style.height = "0";
+            // document.getElementById(quanFormId2).style.height = "0";
+            document.getElementById(quanFormId2).style.display = "grid";
+            document.getElementById(bookGridId2).style.display = "grid";
+            document.getElementById(bookGridId2).style.height = "184px";
+            sum = sum + parseInt(localStorage.getItem(quantity)) * parseInt(localStorage.getItem(price));
+        }
+    }
+    // sum = sum + "$";
+    document.getElementById("cart-total").innerHTML = sum + "$";
+
+    function increaseValue(elem) {
+        var elemId = (elem.id).slice(8);
+        var numberId = "cart-quantity" + elemId;
+        var value = parseInt(document.getElementById(numberId).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById(numberId).value = value;
+        locQuantity = "quantity" + elemId;
+        localStorage.setItem(locQuantity,value);
+        var locPriceId = "price" + elemId;
+        var inVal = parseInt(localStorage.getItem(locPriceId),10);
+        sum = sum + inVal;
+        document.getElementById("cart-total").innerHTML = sum + "$";
+    }
+
+    function decreaseValue(elem) {
+        var elemId = (elem.id).slice(8);
+        var numberId = "cart-quantity" + elemId;
+        var value = parseInt(document.getElementById(numberId).value, 10);
+        var oldVal = value;
+        value < 1 ? value = 1 : '';
+        value--;
+        if(value < 1) value = 1;
+        document.getElementById(numberId).value = value;
+        locQuantity = "quantity" + elemId;
+        localStorage.setItem(locQuantity,value);
+        var locPriceId = "price" + elemId;
+        var deVal = parseInt(localStorage.getItem(locPriceId),10);
+        if(oldVal > value)sum = sum - deVal;
+        document.getElementById("cart-total").innerHTML = sum + "$";
+    }
+
+    function remove(elem){
+        var elemId = (elem.id).slice(16);
+        var bookKey = "book" + elemId;
+        var bookNameKey = "bookName" + elemId;
+        var quantityKey = "quantity" + elemId;
+        var priceKey = "price" + elemId;
+        var authorKey = "author" + elemId;
+
+        sum = sum - parseInt(localStorage.getItem(quantityKey),10) * parseInt(localStorage.getItem(priceKey),10);
+        document.getElementById("cart-total").innerHTML = sum + "$";
+
+        localStorage.removeItem(bookKey);
+        localStorage.removeItem(bookNameKey);
+        localStorage.removeItem(quantityKey);
+        localStorage.removeItem(priceKey);
+        localStorage.removeItem(authorKey);
+
+        var imgId2 = "cart-img" + elemId;
+        var bookNameId2 = "cart-book-name" + elemId;
+        var authorId2 = "cart-author" + elemId;
+        var priceId2 = "cart-price" + elemId; 
+        var quantityId2 = "cart-quantity" + elemId; 
+        var rmBtnId2 = "cart-remove-book" + elemId;
+        var decreaseId2 = "decrease" + elemId;
+        var increaseId2 = "increase" + elemId;
+        var bookInfoId2 = "cart-book-info" + elemId;
+        var quanFormId2 = "cart-quantity-form" + elemId;
+        var bookGridId2 = "cart-book-grid" + elemId;
+
+        // var imgSrc = "./public/images/" + localStorage.getItem(bookId) + ".png";
+        // document.getElementById(imgId2).src = imgSrc;
+        document.getElementById(imgId2).style.display = "none";
+        document.getElementById(bookNameId2).style.display = "none";
+        document.getElementById(authorId2).style.display = "none";
+        document.getElementById(priceId2).style.display = "none";
+        document.getElementById(quantityId2).style.display = "none";
+        document.getElementById(rmBtnId2).style.display = "none";
+        document.getElementById(decreaseId2).style.display = "none";
+        document.getElementById(increaseId2).style.display = "none";
+        // document.getElementById(quanFormId2).style.height = "0";
+        document.getElementById(quanFormId2).style.display = "none";
+        document.getElementById(bookGridId2).style.display = "none";
+        // document.getElementById(bookGridId2).style.height = "184pxs";
+    }
+
+</script>

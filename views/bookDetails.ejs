@@ -1,0 +1,114 @@
+<head>
+    <% include ./layout/header.ejs%>
+    <style type="text/css" media="screen,projection">
+      @import url("/style/bd.css");
+    </style>
+</head>
+
+<body>
+    <div class = "hp-grid">
+        <div class="allrows"></div>
+
+        <div class="allrows">
+            <div class = "cateTitle">Thể loại</div>
+          <% cate.forEach(function(item){ %>
+            <a class = "category" href="/cate/<%= item.CateID %>/1" ><%= item.CateName%></a>
+          <% })%>
+        </div>
+
+        <div class = "bd-book-grid">
+            <img class = "bd-img" src = "/uploads/<%=data[0][0].BookID%>.png">
+            <div class = "bd-bookName"> <%= data[0][0].BookName%></div>
+            <div class = "bd-author"> <%= data[0][0].Author%></div>
+            <div class = "bd-Price"><%= data[0][0].Price%>$</div>
+            <div>
+                <div class="add-to-cart">
+                    <form class="bd-quantity">
+                        <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                        <input class="quantity-value" type="number" id="number" value="1" />
+                        <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                    </form>
+                </div>
+                <button class="bd-add" type="submit" id="addBookToCart" onclick="addBookToCart()">Thêm</button>
+                <div class="success" id="success">Đã thêm vào giỏ</div>
+            </div>
+            <div class="bd-describe"> <%= data[0][0].DescribeBook%></div>
+        </div>
+        
+        <div></div>
+        <div class="comment">
+            <form action="/user/comment" method="post" onsubmit="postCmt()">
+                <input class="hidden" id="bookID" name="bookID"/>
+                <input class="hidden" id="userID" name="userID"/>
+                <input id="commentField" name="commentField" type="text" placeholder="Bạn cảm thấy cuốn sách này thế nào?"/>
+                <button id="sendComment" type="submit">Nhận xét</button>
+            </form>
+            <% if(cmt[0][0] != undefined) {%>
+                <% cmt[0].forEach(function(item){ %>
+                    <div class="show-comment-container">
+                        <div class="user-comment"> <%= item.Name %></div>
+                        <div class="show-comment"> <%= item.Content %></div>
+                    </div>
+                <% })%>
+            <%}%>
+                
+        </div>
+
+    </div>
+    <% var bookId1 = data[0][0].BookID %>
+    <% var bookName = data[0][0].BookName %>
+    <% var author = data[0][0].Author %>
+    <% var price = data[0][0].Price %>
+</body>
+
+<script>
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById('number').value = value;
+    }
+
+    function addBookToCart() {
+        var quantity = parseInt(document.getElementById('number').value, 10);
+        var x = document.getElementById("success");
+        x.style.display = "inline-block";
+        var n = localStorage.length;
+        var m = (n-1)/5+1;
+        for(var i=1;i<=20;i++){
+            var nextBookId = "book" + i;
+            var nextQuantity = "quantity" + i;
+            var nextBookName = "bookName" + i;
+            var nextAuthor = "author" + i;
+            var nextPrice = "price" + i;
+            
+            if(localStorage.getItem(nextBookId) == undefined){
+                localStorage.setItem(nextBookId,"<%= bookId1 %>");
+                console.log(<%= bookId1 %>);
+                localStorage.setItem(nextQuantity, quantity);
+                localStorage.setItem(nextBookName, "<%= bookName %>"  );
+                localStorage.setItem(nextAuthor, "<%=  author %>" );
+                localStorage.setItem(nextPrice, <%= price%> );
+                break;
+            }
+        }
+    }
+
+    function postCmt(){
+        var idTmp = <%= parseInt(bookId1); %>
+        console.log(idTmp);
+        document.getElementById("bookID").value = idTmp;
+        document.getElementById("userID").value = localStorage.getItem("user");
+        console.log(document.getElementById("bookID").value);
+        console.log(document.getElementById("userID").value);
+    }
+    
+</script>

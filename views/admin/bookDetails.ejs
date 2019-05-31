@@ -1,0 +1,96 @@
+<head>
+    <% include ./navbar.ejs%>
+    <style type="text/css" media="screen,projection">
+        @import url("/style/books.css");
+    </style>
+</head>
+
+<body>
+    <form action="/admin/books/details/<%=data.BookID%>" method="post" enctype="multipart/form-data">
+        <table class="books-table">
+            <tr>
+                <th>Thuộc tính</th>
+                <th>Thông tin</th>
+            </tr>
+            
+            <tr>
+                <td>ID sách</td>
+                <td><input name="bookId" disabled value="<%=data.BookID%>"> 
+                </td>
+            </tr>
+
+            <tr>
+                <td>Tên sách</td>
+                <td><input class="changeInfo" name="bookName" value="<%=data.BookName%>"></td>
+            </tr>
+
+            <tr>
+                <td>Tác giả</td>
+                <td><input class="changeInfo" name="author" value="<%=data.Author%>"></td>
+            </tr>
+
+            <tr>
+                <td>Số lượng</td>
+                <td><input class="changeInfo" name="amount" value="<%=data.Amount%>"></td>
+            </tr>
+
+            <tr>
+                <td>Giá</td>
+                <td><input class="changeInfo" name="price" value="<%=data.Price%>"></td>
+            </tr>
+
+            <tr>
+                <td>Số trang</td>
+                <td><input class="changeInfo" name="pagesNumber" value="<%=data.PagesNumber%>"></td>
+            </tr>
+
+            <tr>
+                <td>Đánh giá</td>
+                <td><input class="changeInfo" name="rating" value="<%=data.Rating%>"></td>
+            </tr>
+
+            <tr>
+                <td>Nhà xuất bản</td>
+                <td><input class="changeInfo" name="company" value="<%=data.Company%>"></td>
+            </tr>
+
+            <tr>
+                <td>Thể loại</td>
+                <td>
+                    <select name="cateId">
+                        <% cate.forEach(function(item) { %>
+                           <% if(item.CateID == data.CateID) { %>
+                                <option value="<%=item.CateID%>" selected><%=item.CateName%></option>
+                           <% } else {%>
+                                <option value="<%=item.CateID%>"><%=item.CateName%></option>
+                           <%}%>
+                        <% }) %>    
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mô tả</td>
+                <td>
+                    <textarea rows="" cols="" class="changeInfo" name="describe"><%=data.DescribeBook%></textarea>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Ảnh bìa</td>
+                <td>
+                    <img style="display: block" src="/uploads/<%=data.BookID%>.png">
+                    <input type="file" name="file">
+                </td>
+            </tr>
+        </table>
+    <button class="btn admin-btn green" type="submit">Lưu</button>
+    </form>
+    <button class="admin-btn green" style="margin:20px 0 0 10%" onclick="goBack()">Lùi lại</button>
+</body>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
