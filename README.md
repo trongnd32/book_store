@@ -14,3 +14,4 @@ node index.js
 ```
 
 ## Docs
+https://github.com/trongnd32/book_store/blob/master/B%C3%A1o%20c%C3%A1o.pdf
